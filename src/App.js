@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
+import { incrementCounter, decrementCounter } from "./actions";
 
-function App() {
+function App({ count, incrementCounter, decrementCounter }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>카운터:{count}</h1>
+      <button onClick={incrementCounter}>+</button>
+      <button onClick={decrementCounter}>-</button>
     </div>
   );
 }
 
-export default App;
+/* https://react-redux.js.org/using-react-redux/connect-mapstate */
+function mapStateToProps(state) {
+  return {
+    count: state.count,
+  };
+}
+
+//connect 에는 dispatch 가 내장되어 있음
+export default connect(mapStateToProps, { incrementCounter, decrementCounter })(
+  App
+);
+//export default App;
